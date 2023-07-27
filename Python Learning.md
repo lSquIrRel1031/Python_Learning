@@ -247,3 +247,141 @@ date.today()
 print(date.today())
 ```
 
+
+
+## 命令行输入
+
+使用 `python3` 启动程序时，请为程序指定要启动的文件的名称。 还可为它提供一组参数：程序在运行时有权访问的数据。 如下所示：
+
+Bash
+
+```bash
+python3 backup.py 2023-01-01
+```
+
+在以上代码中，字符串“2023-01-01”可以用作程序 backup.py 从该日期开始备份的指令。 使用命令行参数的好处是具有灵活性。 程序的行为可能有所不同，具体取决于其外部输入。
+
+### 命令行参数
+
+在编码时是如何捕获这些命令的？ 通过使用 `sys` 模块，可以检索命令行参数，并在程序中使用它们。 请看以下代码：
+
+```python
+import sys
+
+print(sys.argv)
+print(sys.argv[0]) # program name
+print(sys.argv[1]) # first arg
+```
+
+`sys.argv` 是一个数组，或者说是一个包含许多项的数据结构。 第一个位置在数组中表示为 `0`，包含程序名称。 第二个位置 `1` 包含第一个参数。 假设程序 backup.py 包含示例代码，并且你按如下所示运行该程序：
+
+控制台
+
+```console
+python3 backup.py 2023-01-01
+```
+
+然后程序生成以下结果：
+
+输出
+
+```output
+['backup.py', '2023-01-01'] 
+backup.py
+2023-01-01
+```
+
+
+
+## 用户输入
+
+向程序传递数据的另一种方式是让用户输入数据。 你可以编写代码，让程序告知用户输入信息。 你将输入的数据保存在程序中，然后处理这些数据。
+
+要捕获来自用户的信息，请使用 `input()` 函数。 下面是一个示例：
+
+Python
+
+```python
+print("Welcome to the greeter program")
+name = input("Enter your name: ")
+print("Greetings " + name)
+```
+
+假设程序 input.py 包含示例代码，并且你按如下所示运行该程序：
+
+控制台
+
+```console
+python3 input.py
+```
+
+运行程序会邀请你输入你的姓名，例如：
+
+输出
+
+```output
+Welcome to the greeter program
+Enter your name: 
+```
+
+输入值并按 Enter 后，会返回问候语：
+
+输出
+
+```output
+Welcome to the greeter program
+Enter your name: Picard
+Greetings Picard
+```
+
+### 使用数字
+
+函数 `input()` 将结果存储为字符串，因此，以下代码可能不会执行你想要它执行的操作：
+
+```python
+print("calculator program")
+first_number = input("first number: ")
+second_number = input("second number: ")
+print(first_number + second_number)
+```
+
+运行此程序会邀请你输入第一个数字，比如说 `3`：
+
+```output
+calculator program
+first number: 3
+```
+
+按 Enter 后，可以输入第二个数字，比如说 `4`：
+
+```output
+calculator program
+first number: 3
+second number: 4
+```
+
+按 Enter 可得到以下结果：
+
+```output
+calculator program
+first number: 3
+second number: 4
+34
+```
+
+你可能想要此程序用 `7` 而不是 `34` 来回答你。 是哪里出错了呢？
+
+原因是 `first_number` 和 `second_number` 是字符串。 为了使计算正常运行，需要使用 `int()` 函数将这些字符串更改为数字。 通过修改程序的最后一行来使用 `int()`，可以解决此问题：
+
+```python
+print(int(first_number) + int(second_number))
+```
+
+使用相同的值重新运行该程序，现在返回的响应是 `7`：
+
+```output
+calculator program
+first number: 3
+second number: 4
+7
+```
