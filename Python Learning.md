@@ -614,6 +614,8 @@ python newapp.py
 2023-03-07 10:04:24.799976
 ```
 
+------------------------------
+
 ## 什么是“else”和“elif”
 
 如果希望程序在测试表达式为 `False` 时也运行一段代码该怎么办？ 或者，如果想包含另一个测试表达式该怎么办？ Python 有其他关键字可用于创建更复杂的 `if` 语句，即 `else` 和 `elif`。 结合使用 `if`、`else` 和 `elif` 时，可以编写具有多个测试表达式和语句的复杂程序来运行。
@@ -789,7 +791,7 @@ if a == 34 and b == 34:
 sub-expression1 and sub-expression2
 ```
 
-## `and` 和 `or` 之间的差异
+### `and` 和 `or` 之间的差异
 
 若要突出显示两个布尔运算符之间的差异，可以使用真值表。 真值表根据两个子表达式显示整个测试表达式的计算结果。
 
@@ -810,3 +812,340 @@ sub-expression1 and sub-expression2
 | `True`           | `or`   | `False`          | `True`  |
 | `False`          | `or`   | `True`           | `True`  |
 | `False`          | `or`   | `False`          | `False` |
+
+-------------------------------
+
+## Python 中的字符串基础知识
+
+虽然 Python 中的字符串看起来简单直接，但字符串规则存在一定的复杂度，必须掌握它们。 了解规则有助于避免在修改值或设置文本格式时受到字符串行为的影响。
+
+### 简单的字符串
+
+在本单元的示例中，你有一个关于月球的事实，它被赋值到一个变量，如下所示：
+
+```python
+fact = "The Moon has no atmosphere."
+print(fact)
+```
+
+输出显示已将文本分配给变量：`The Moon has no atmosphere.`
+
+### 字符串的不可变性
+
+在 Python 中，字符串是**不可变**的。 也就是说，它们不能更改。 字符串类型的此属性可能令人感到惊讶，因为在你更改字符串时，Python 不会显示错误。
+
+你需要向已被赋值到一个变量的该事实添加另一个事实（句子）。 添加第二个事实似乎会改变变量，如以下示例所示：
+
+```python
+fact = "The Moon has no atmosphere."
+fact + "No sound can be heard on the Moon."
+```
+
+你可能希望输出为：`The Moon has no atmosphere.No sound can be heard on the Moon.`
+
+尽管可能看起来我们已经修改了变量 `fact`，但快速检查值后发现原始值没有变化：
+
+```python
+fact = "The Moon has no atmosphere."
+fact + "No sound can be heard on the Moon."
+print(fact)
+```
+
+输出：`The Moon has no atmosphere.`
+
+技巧在于必须使用返回值。 添加字符串时，Python 不会修改任何字符串，但会返回一个新的字符串作为结果。 若要保留这个新结果，请将它分配给新变量：
+
+```python
+fact = "The Moon has no atmosphere."
+two_facts = fact + "No sound can be heard on the Moon."
+print(two_facts)
+```
+
+输出：`The Moon has no atmosphere.No sound can be heard on the Moon.`
+
+操作字符串始终会生成新的字符串作为结果。
+
+### 关于使用引号
+
+可以用单引号、双引号或三引号将 Python 字符串引起来。 尽管可互换使用它们，但最好在项目中一致地使用一种类型。 例如，以下字符串使用双引号：
+
+```python
+moon_radius = "The Moon has a radius of 1,080 miles."
+```
+
+但是，如果字符串包含也用引号引起来的单词、数字或特殊字符（子字符串），则应使用其他样式。 例如，如果子字符串使用双引号，那么请用单引号将整个字符串引起来，如下所示：
+
+```python
+'The "near side" is the part of the Moon that faces the Earth.'
+```
+
+同样，如果在字符串中的任何位置有单引号（或撇号，如下例中的 Moon's 所示），请用双引号将整个字符串引起来：
+
+```python
+"We only see about 60% of the Moon's surface."
+```
+
+如果不能替换单引号和双引号，可能会导致 Python 解释器引发语法错误，如下所示：
+
+```python
+'We only see about 60% of the Moon's surface.'
+  File "<stdin>", line 1
+    'We only see about 60% of the Moon's surface.'
+                                       ^
+SyntaxError: invalid syntax
+```
+
+如果文本包含单引号和双引号的组合，可使用三引号来防止解释器出现问题：
+
+```python
+"""We only see about 60% of the Moon's surface, this is known as the "near side"."""
+```
+
+### 多行文本
+
+有几种不同的方法可将多行文本定义为单个变量。 最常见的方法是：
+
+- 使用换行符 (`\n`)。
+- 使用三引号 (""")。
+
+打印输出时，换行符将文本分隔到多行：
+
+```python
+multiline = "Facts about the Moon:\n There is no atmosphere.\n There is no sound."
+print(multiline)
+```
+
+```Output
+Facts about the Moon:
+ There is no atmosphere.
+ There is no sound.
+```
+
+可使用三引号到达这一目的：
+
+```python
+multiline = """Facts about the Moon:
+ There is no atmosphere.
+ There is no sound.
+"""
+ print(multiline)
+```
+
+## Python 中的字符串方法
+
+字符串方法是 Python 中最常见的方法类型之一。 你通常需要操作字符串来提取信息或适应特定格式。 Python 包含几种旨在执行最常见和最有用的转换的字符串方法。
+
+字符串方法是 `str` 类型的一部分。 这意味着这些方法作为字符串变量，或者直接作为字符串的一部分存在。 例如，`.title()` 方法以首字母大写形式返回字符串，并且可以直接与字符串一起使用：
+
+```python
+print("temperatures and facts about the moon".title())
+```
+
+输出：`Temperatures And Facts About The Moon`
+
+变量上也有这样的行为和使用情况：
+
+```python
+heading = "temperatures and facts about the moon"
+heading_upper = heading.title()
+print(heading_upper)
+```
+
+### 拆分字符串
+
+常见的字符串方法是 `.split()`。 如果没有参数，该方法将在每个空格处分隔字符串。 这将创建一个单词或数字列表，每个单词或数字由空格分隔：
+
+```python
+temperatures = "Daylight: 260 F Nighttime: -280 F"
+temperatures_list = temperatures .split()
+print(temperatures_list)
+```
+
+输出：`['Daylight:', '260', 'F', 'Nighttime:', '-280', 'F']`
+
+在本示例中，你将处理多个行，因此可使用（隐式）换行符在每行的末尾拆分字符串，从而创建单行：
+
+```python
+temperatures = "Daylight: 260 F\n Nighttime: -280 F"
+temperatures_list = temperatures .split('\n')
+print(temperatures_list)
+```
+
+输出：`['Daylight: 260 F', 'Nighttime: -280 F']`
+
+当需要循环来处理或提取信息时，或者从文本文件加载数据时，这种类型的拆分会非常方便。
+
+### 搜索字符串
+
+某些字符串方法还可在处理之前查找内容，而无需使用循环。 假设你有两个讨论不同行星和月球温度的语句。 但是，你只对与月球相关的温度感兴趣。 也就是说，如果句子没有讨论月球，则不应处理这些句子来提取信息。
+
+要发现某个字符串中是否存在给定的单词、字符或字符组，最简单的操作是使用 `in` 运算符：
+
+```python
+print("Moon" in "This text will describe facts and challenges with space travel")
+```
+
+输出：`False`
+
+```python
+print("Moon" in "This text will describe facts about the Moon")
+```
+
+输出：`True`
+
+要查找特定单词在字符串中的位置，一种方法是使用 `.find()` 方法：
+
+```python
+temperatures = """Saturn has a daytime temperature of -170 degrees Celsius, while Mars has -28 Celsius."""
+print(temperatures.find("Moon"))
+```
+
+输出：`-1`
+
+如果找不到该单词，`.find()` 方法会返回 `-1`；否则它将返回索引（表示字符串中的位置的数字）。 这是搜索“Mars”（火星）一词时的行为方式：
+
+```python
+temperatures = """Saturn has a daytime temperature of -170 degrees Celsius, while Mars has -28 Celsius."""
+print(temperatures.find("Mars"))
+```
+
+输出：`64`
+
+`64` 是字符串中出现 `"Mars"` 的位置。
+
+搜索内容的另一种操作是使用 `.count()` 方法，这将返回某个单词在字符串出现的总次数：
+
+```python
+temperatures = """Saturn has a daytime temperature of -170 degrees Celsius, while Mars has -28 Celsius."""
+print(temperatures.count("Mars"))
+print(temperatures.count("Moon"))
+```
+
+```Output
+1
+0
+```
+
+Python 中的字符串区分大小写，这意味着 Moon 和 moon 被视为不同的单词。 若要执行不区分大小写的比较，可使用 `.lower()` 方法将字符串转换为全部是小写字母：
+
+```python
+print("The Moon And The Earth".lower())
+```
+
+输出：`the moon and the earth`
+
+与 `.lower()` 方法类似，字符串具有执行相反操作（即，将每个字符都转换为大写）的 `.upper()` 方法：
+
+```python
+print("The Moon And The Earth".upper())
+```
+
+输出：`THE MOON AND THE EARTH`
+
+----------------
+
+*提示：搜索和检查内容时，更可靠的方法是将字符串小写，这样大小写就不会妨碍匹配。 例如，如果计算单词 the 出现的次数，则方法不会计算 The 出现的次数，即使这两者是同一个词。 可使用 `.lower()` 方法将所有字符都更改为小写。*
+
+### 检查内容
+
+有时，你将处理文本来提取在呈现中不规则的信息。 例如，下面的字符串比非结构化段落更容易处理：
+
+```python
+temperatures = "Mars Average Temperature: -60 C"
+```
+
+为了提取火星上的平均温度，可使用以下方法：
+
+```python
+temperatures = "Mars Average Temperature: -60 C"
+parts = temperatures.split(':')
+print(parts)
+print(parts[-1])
+```
+
+```Output
+['Mars average temperature', ' -60 C']
+' -60 C'
+```
+
+上述方法信任冒号 (`:`) 后的所有内容都是温度。 字符串在 `:` 处进行拆分，这将生成一个包含两个项的列表。 在列表中使用 `[-1]` 将返回最后一项，在本示例中就是温度。
+
+如果文本不规则，则不能使用这些拆分方法来获取值。 必须循环访问这些项，并检查值是否属于某种类型。 Python 提供了方法来帮助检查字符串的类型：
+
+```python
+mars_temperature = "The highest temperature on Mars is about 30 C"
+for item in mars_temperature.split():
+    if item.isnumeric():
+        print(item)
+```
+
+输出：`30`
+
+与 `.isnumeric()` 方法一样，`.isdecimal()` 可检查类似于小数的字符串。
+
+----
+
+*重要：知道 `"-70".isnumeric()` 会返回 `False` 可能令人吃惊。 这是因为字符串中的所有字符都必须是数字，而短划线 (`-`) 不是数字。 如果需要检查字符串中的负数，则 `.isnumeric()` 方法不起作用。*
+
+
+
+可对字符串应用额外的验证来检查值。 对于负数，短划线是数字的前缀，可通过 `.startswith()` 方法进行检测：
+
+```python
+print("-60".startswith('-'))
+```
+
+输出：`True`
+
+同样，`.endswith()` 方法有助于验证字符串的最后一个字符：
+
+```python
+if "30 C".endswith("C"):
+	print("This temperature is in Celsius")
+```
+
+输出：`This temperature is in Celsius`
+
+### 转换文本
+
+如果需要将文本转换为其他内容，还有其他方法可提供帮助。 到目前为止，你已经看到了可用 C 表示 Celsius（摄氏度），用 F 表示 Fahrenheit（华氏度）的字符串。 你可使用 `.replace()` 方法查找某个字符或某一组字符的出现情况并替换它们：
+
+```python
+print("Saturn has a daytime temperature of -170 degrees Celsius, while Mars has -28 Celsius.".replace("Celsius", "C"))
+```
+
+输出：`Saturn has a daytime temperature of -170 degrees C, while Mars has -28 C.`
+
+如前文所述，`.lower()` 是规范化文本来执行不区分大小写的搜索的好方法。 让我们快速查看一些文本是否讨论了温度：
+
+```python
+text = "Temperatures on the Moon can vary wildly."
+print("temperatures" in text)
+```
+
+输出：`False`
+
+```python
+text = "Temperatures on the Moon can vary wildly."
+print("temperatures" in text.lower())
+```
+
+输出：`True`
+
+你可能不需要总是执行不区分大小写的验证，但当文本大小写混用时，将每个字母小写是一种很好的方法。
+
+拆分文本并执行转换后，你可能需要将所有部分重新组合在一起。 正如 `.split()` 方法可分隔字符一样，`.join()` 方法可将它们重新组合在一起。
+
+`.join()` 方法要求可迭代项（例如 Python 列表）作为参数，因此它的用法看起来与其他字符串方法不同：
+
+```python
+moon_facts = ["The Moon is drifting away from the Earth.", "On average, the Moon is moving about 4cm every year."]
+print(' '.join(moon_facts))
+```
+
+输出：`The Moon is drifting away from the Earth. On average, the Moon is moving about 4cm every year.`
+
+在本示例中，使用 `' '` 来联接列表中的每一项。
+
+---
+
