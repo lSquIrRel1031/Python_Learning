@@ -54,7 +54,7 @@
 
 	可无序记录一堆Key-Value型的Python数据集合
 
-
+---
 
 ## 注释
 
@@ -79,7 +79,7 @@
 """
 ```
 
-
+---
 
 ## 变量
 
@@ -93,7 +93,7 @@
 name = value
 ```
 
-
+---
 
 ## 数据类型
 
@@ -147,7 +147,7 @@ str(x)
 >
 > 浮点数转整数会丢失小数部分
 
-
+---
 
 ## 标识符
 
@@ -189,7 +189,7 @@ str(x)
 - 下划线命名法
 - 英文字母全小写
 
-
+---
 
 ## 运算符
 
@@ -231,6 +231,95 @@ str(x)
 
 
 
+## 在 Python 中使用数字
+
+除了核心算法以外，还可以对数字使用其他运算。 可能需要执行舍入或将字符串转换为数字。
+
+在本模块的方案中，你希望接受来自用户的输入。 输入将是一个字符串而不是数字，因此需要将其转换为数字。 此外，用户输入的答案可能是负数，而你不想显示这些值。 你可能需要将答案转换为绝对值。 幸运的是，Python 为这些运算提供了实用程序。
+
+### 将字符串转换为数字
+
+Python 支持两种主要类型的数字：整数（或 `int`）和浮点（或 `float`）。 二者之间的主要区别在于是否存在小数点；整数是整值，而浮点包含小数值。
+
+将字符串转换为数字时，需要指定要创建的数字的类型。 必须确定是否需要小数点。 使用 `int` 将转换为整数，而使用 `float` 将转换为浮点数。
+
+```python
+demo_int = int('215')
+print(demo_int)
+
+demo_float = float('215.3')
+print(demo_float)
+```
+
+```Output
+215
+215.3
+```
+
+***重要***
+
+如果为 `int` 或 `float` 使用了无效的值，则会发生错误。
+
+### 绝对值
+
+数学中的绝对值是没有符号的非负数。 在不同情况下，使用绝对值会很有用，其中包括用于确定两个行星之间距离的示例。 请考虑下面的数学运算：
+
+```python
+print(39 - 16)
+print(16 - 39)
+```
+
+请注意，这两个方程之间的区别在于数字是相反的。 答案分别为 `23` 和 `-23`。 在确定两个行星之间的距离时，数字的输入顺序并不重要，因为绝对答案是相同的。
+
+使用 `abs` 将负值转换为其绝对值。 如果使用 `abs` 执行相同的操作（并输出答案），你会注意到这两个公式的结果都显示为 `23`。
+
+```python
+print(abs(39 - 16))
+print(abs(16 - 39))
+```
+
+```Output
+23
+23
+```
+
+### 舍入
+
+名为 `round` 的内置 Python 函数也很有用。 如果小数值大于 `.5`，则使用它可向上舍入到最接近的整数；如果小数值小于或等于 `.5`，使用它可以向下舍入。
+
+```python
+print(round(14.5))
+```
+
+输出：14
+
+[另一用法](###关于 f-string)：转换为小数
+
+### 数学库
+
+Python 中有一些库，可提供更高级的运算和计算。 最常见的一种是 `math` 库。 `math` 允许你使用 `floor` 和 `ceil` 执行舍入、提供 pi 的值以及许多其他运算。 让我们来看看如何使用这个库进行向上或向下舍入。
+
+舍入数字让你能够去掉浮点的小数部分。 可以选择始终使用 `ceil` 向上舍入到最接近的整数，或者使用 `floor` 向下舍入。
+
+```python
+from math import ceil, floor
+
+round_up = ceil(12.5)
+print(round_up)
+
+round_down = floor(12.5)
+print(round_down)
+```
+
+
+
+```Output
+13
+12
+```
+
+---
+
 ## 日期
 
 ### 用途
@@ -257,7 +346,7 @@ date.today()
 print(date.today())
 ```
 
-
+---
 
 ## 命令行输入
 
@@ -301,7 +390,7 @@ backup.py
 2023-01-01
 ```
 
-
+---
 
 ## 用户输入
 
@@ -396,9 +485,7 @@ second number: 4
 7
 ```
 
-
-
-
+—
 
 ## 使用包
 
@@ -887,7 +974,7 @@ moon_radius = "The Moon has a radius of 1,080 miles."
 
 如果不能替换单引号和双引号，可能会导致 Python 解释器引发语法错误，如下所示：
 
-```python
+```output
 'We only see about 60% of the Moon's surface.'
   File "<stdin>", line 1
     'We only see about 60% of the Moon's surface.'
@@ -1149,3 +1236,100 @@ print(' '.join(moon_facts))
 
 ---
 
+## Python 中的字符串格式
+
+除了转换文本和执行基本操作（例如匹配和搜索）外，在显示信息时必须设置文本的格式。 要使用 Python 显示文本信息，最简单的方法是使用 `print()` 函数。 你会发现，将变量中的信息和其他数据结构获取到 `print()` 可使用的字符串中非常重要。
+
+在本单元中，你将了解通过使用 Python 在文本中包含变量值的几个有效方法。
+
+### 百分号 (`%`) 格式
+
+字符串中变量的占位符为 `%s`。 在字符串之后，使用另一个 `%` 字符，后跟变量名称。 以下示例演示如何使用 `%` 字符设置格式：
+
+```python
+mass_percentage = "1/6"
+print("On the Moon, you would weigh about %s of your weight on Earth." % mass_percentage)
+```
+
+输出：`On the Moon, you would weigh about 1/6 of your weight on Earth.`
+
+使用多个值将更改语法，因为它需要用括号括住传入的变量：
+
+```python
+print("""Both sides of the %s get the same amount of sunlight, but only one side is seen from %s because the %s rotates around its own axis when it orbits %s.""" % ("Moon", "Earth", "Moon", "Earth"))
+```
+
+输出：`Both sides of the Moon get the same amount of sunlight, but only one side is seen from Earth because the Moon rotates around its own axis when it orbits Earth.`
+
+***提示***:尽管此方法仍然是设置字符串格式的有效方法，但在处理多个变量时，它可能会导致错误并降低代码的清晰性。 本单元中还描述了其他两个格式设置选项，其中任何一个都更适合此目的。
+
+### `format()` 方法
+
+`.format()` 方法使用大括号 (`{}`) 作为字符串中的占位符，并使用变量赋值来替换文本。
+
+```python
+mass_percentage = "1/6"
+print("On the Moon, you would weigh about {} of your weight on Earth.".format(mass_percentage))
+```
+
+输出：`On the Moon, you would weigh about 1/6 of your weight on Earth.`
+
+不需要给重复的变量赋值多次，使它变得更简洁，因为需要赋值的变量变少了:
+
+```python
+mass_percentage = "1/6"
+print("""You are lighter on the {0}, because on the {0} you would weigh about {1} of your weight on Earth.""".format("Moon", mass_percentage))
+```
+
+输出：`You are lighter on the Moon, because on the Moon you would weigh about 1/6 of your weight on Earth.`
+
+替换使用的是数字，而不是空的大括号。 `{0}` 表示使用 `.format()` 的第一个（索引 0）参数，在本例中是 `Moon`。 对于简单的重复，`{0}` 效果很好，但它会降低可读性。 为了提高可读性，请在 `.format()` 中使用关键字参数，并在大括号内引用这些参数：
+
+```python
+mass_percentage = "1/6"
+print("""You are lighter on the {moon}, because on the {moon} you would weigh about {mass} of your weight on Earth.""".format(moon="Moon", mass=mass_percentage))
+```
+
+输出：`You are lighter on the Moon, because on the Moon you would weigh about 1/6 of your weight on Earth.`
+
+### 关于 f-string
+
+从 Python 版本 3.6 开始，可使用 f-string。 这些字符串看起来像模板，并使用代码中的变量名称。 在上例中使用 f-string 将得到如下结果：
+
+```python
+print(f"On the Moon, you would weigh about {mass_percentage} of your weight on Earth.")
+```
+
+输出：`On the Moon, you would weigh about 1/6 of your weight on Earth.`
+
+变量在大括号中，并且字符串必须使用 `f` 前缀。
+
+f-string 比任何其他格式设置选项都更简洁。除了它之外，还可用大括号将表达式括起来。 这些表达式可以是函数或直接操作。 例如，如果想要将 `1/6` 值表示为具有一个小数位的百分比，可直接使用 `round()` 函数：
+
+[^round()]:round(数,小数位数)
+
+[另一用法](###舍入)： 舍入
+
+```python
+print(round(100/6, 1))
+```
+
+输出：`16.7`
+
+使用 f-string 时，无需提前向变量赋值：
+
+```python
+print(f"On the Moon, you would weigh about {round(100/6, 1)}% of your weight on Earth.")
+```
+
+输出：`On the Moon, you would weigh about 16.7% of your weight on Earth.`
+
+使用表达式不需要函数调用。 任何字符串方法也能做到这一点。 例如，字符串可强制使用特定的大小写来创建标题：
+
+```python
+subject = "interesting facts about the moon"
+heading = f"{subject.title()}"
+print(heading)
+```
+
+输出：`Interesting Facts About The Moon`
