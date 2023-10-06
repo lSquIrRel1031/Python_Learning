@@ -1469,3 +1469,161 @@ print("Mercury is the", mercury_index + 1, "planet from the sun")
 ```
 
 输出：`Mercury is the 1 planet from the sun`
+
+
+
+## 使用列表中的数字
+
+### 在列表中存储数字
+
+若要在 Python 中存储带小数位的数字，请使用 `float` 类型。 若要创建浮点数，请输入带小数位的数字并将其分配给变量：
+
+```python
+gravity_on_earth = 1.0
+gravity_on_the_moon = 0.166
+```
+
+以下代码创建一个列表，显示太阳系中所有八颗行星的重力，以 G 为单位：
+
+```python
+gravity_on_planets = [0.378, 0.907, 1, 0.377, 2.36, 0.916, 0.889, 1.12]
+```
+
+在这个列表中，`gravity_on_planets[0]` 是水星上的重力 (0.378 G)，`gravity_on_planets[1]` 是金星上的重力 (0.907 G)，依此类推。
+
+在地球上，一辆双层巴士重达 124,054 牛顿 (N)。 在重力为 0.378 G 的水星上，同一辆巴士的重量为 124,054 牛顿乘以 0.378。 在 Python 中，要将两个值相乘，请使用 `*` 符号。
+
+在以下示例中，可以通过从列表中获取值来计算不同行星上双层巴士的重量：
+
+```python
+gravity_on_planets = [0.378, 0.907, 1, 0.377, 2.36, 0.916, 0.889, 1.12]
+bus_weight = 124054 # in Newtons, on Earth
+
+print("On Earth, a double-decker bus weighs", bus_weight, "N")
+print("On Mercury, a double-decker bus weighs", bus_weight * gravity_on_planets[0], "N")
+```
+
+```Output
+On Earth, a double-decker bus weighs 124054 N
+On Mercury, a double-decker bus weighs 46892.4 N
+```
+
+### 将 `min()` 和 `max()` 与列表配合使用
+
+Python 具有用于计算列表中最大和最小数字的内置函数。 `max()` 函数返回最大数，`min()` 返回最小数。 因此 `min(gravity_on_planets)` 返回 `gravity_on_planets` 列表中的最小数，即 0.377（火星）。
+
+以下代码使用这些函数计算太阳系中的最小和最大重量：
+
+```python
+gravity_on_planets = [0.378, 0.907, 1, 0.377, 2.36, 0.916, 0.889, 1.12]
+bus_weight = 12650 # in Newtons, on Earth
+
+print("On Earth, a double-decker bus weighs", bus_weight, "N")
+print("The lightest a bus would be in the solar system is", bus_weight * min(gravity_on_planets), "N")
+print("The heaviest a bus would be in the solar system is", bus_weight * max(gravity_on_planets), "N")
+```
+
+```Output
+On Earth, a double-decker bus weighs 124054 N
+The lightest a bus would be in the solar system is 46768.35 N
+The heaviest a bus would be in the solar system is 292767.44 N
+```
+
+
+
+## 操作列表数据
+
+你可能需要使用列表的不同部分。 例如，假设有一个包含不同月份降雨量的列表。 要正确分析此类数据，可能需要查找某三个月内的降雨量。 或者你可能希望按照降雨量从多到少的顺序对列表进行排序。
+
+Python 为处理列表中的数据提供了强大的支持。 这种支持包括切片数据（仅检查一部分）和排序。
+
+### 切片列表
+
+可以使用切片来检索部分列表。 切片使用方括号，但不是仅包含单个项，而是具有起始和结束索引。 使用切片时，会创建一个新列表，该列表从起始索引开始，在结束索引之前（并且不包括）结束。
+
+行星列表有八项。 地球是列表中的第三项。 若要获取地球之前的行星，请使用切片获取从 0 开始到 2 结束的项：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+planets_before_earth = planets[0:2]
+print(planets_before_earth)
+```
+
+输出：`['Mercury', 'Venus']`
+
+请注意，列表中不包含地球。 原因在于该索引在结束索引之前结束。
+
+若要获取地球之后的所有行星，请从第三项开始，到第八项：
+
+```python
+planets_after_earth = planets[3:8]
+print(planets_after_earth) 
+```
+
+输出：`['Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']`
+
+在本例中，显示了海王星。 原因是海王星的索引是 `7`，而索引从 `0` 开始。 由于结束索引是 `8`，因此包含最后一个值。 如果未将停止索引置于切片中，Python 会假定你要转到列表的末尾：
+
+```python
+planets_after_earth = planets[3:]
+print(planets_after_earth)
+```
+
+输出：`['Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']`
+
+***重要***：切片会创建一个新列表。 它不会修改当前列表。
+
+### 联接列表
+
+你已了解如何使用切片来拆分列表，但是如何将它们重新联接在一起呢？
+
+若要联接两个列表，可以将另一个运算符 (`+`) 与两个列表一起使用，以返回一个新列表。
+
+木星有 79 颗已知卫星。 最大的四颗是木卫一、木卫二、木卫三和木卫四。 这些卫星被称为伽利略卫星，因为伽利略·伽利莱在 1610 年用他的望远镜发现了它们。 比伽利略卫星群更接近木星的是阿马尔塞卫星群。 它由卫星木卫十六、木卫十五、木卫五和木卫十四组成。
+
+创建两个列表。 用四个阿马尔塞卫星填充第一个列表，用四个伽利略卫星填充第二个列表。 使用 `+` 将它们联接在一起以创建一个新列表：
+
+```python
+amalthea_group = ["Metis", "Adrastea", "Amalthea", "Thebe"]
+galilean_moons = ["Io", "Europa", "Ganymede", "Callisto"]
+
+regular_satellite_moons = amalthea_group + galilean_moons
+print("The regular satellite moons of Jupiter are", regular_satellite_moons)
+```
+
+输出：`The regular satellite moons of Jupiter are ['Metis', 'Adrastea', 'Amalthea', 'Thebe', 'Io', 'Europa', 'Ganymede', 'Callisto']`
+
+***重要***：联接列表会创建一个新列表。 它不会修改当前列表。
+
+### 对列表进行排序
+
+若要对列表进行排序，请对列表使用 `.sort()` 方法。 Python 按字母顺序对字符串列表排序，按数字顺序对数字列表排序：
+
+```python
+amalthea_group = ["Metis", "Adrastea", "Amalthea", "Thebe"]
+galilean_moons = ["Io", "Europa", "Ganymede", "Callisto"]
+
+regular_satellite_moons = amalthea_group + galilean_moons
+regular_satellite_moons.sort()
+print("The regular satellite moons of Jupiter are", regular_satellite_moons)
+```
+
+输出：`The regular satellite moons of Jupiter are ['Adrastea', 'Amalthea', 'Callisto', 'Europa', 'Ganymede', 'Io', 'Metis', 'Thebe']`
+
+若要以相反的顺序对列表进行排序，请对列表调用 `.sort(reverse=True)`：
+
+```python
+amalthea_group = ["Metis", "Adrastea", "Amalthea", "Thebe"]
+galilean_moons = ["Io", "Europa", "Ganymede", "Callisto"]
+
+regular_satellite_moons = amalthea_group + galilean_moons
+regular_satellite_moons.sort(reverse=True)
+print("The regular satellite moons of Jupiter are", regular_satellite_moons)
+```
+
+输出：`The regular satellite moons of Jupiter are ['Thebe', 'Metis', 'Io', 'Ganymede', 'Europa', 'Callisto', 'Amalthea', 'Adrastea']`
+
+***重要***：使用 `sort` 修改当前列表。操作列表数据
+
+
+
