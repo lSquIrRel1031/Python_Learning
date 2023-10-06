@@ -1333,3 +1333,139 @@ print(heading)
 ```
 
 输出：`Interesting Facts About The Moon`
+
+
+
+---
+
+## 列表简介
+
+Python 具有许多内置类型，例如字符串和整数。 Python 有一种用于存储值集合的类型：列表。
+
+### 创建列表
+
+你可以通过将一系列值分配给变量来创建列表。 每个值用逗号分隔并用方括号 (`[]`) 括起来。 以下示例将所有行星的列表存储在 `planets` 变量中：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+```
+
+### 按索引访问列表项
+
+可以通过将索引括在列表变量名称后的方括号 `[]` 中来访问列表中的任何项。 索引从 0 开始，因此在以下代码中，`planets[0]` 是列表 `planets` 中的第一项：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+print("The first planet is", planets[0])
+print("The second planet is", planets[1])
+print("The third planet is", planets[2])
+```
+
+```Output
+The first planet is Mercury
+The second planet is Venus
+The third planet is Earth
+```
+
+***备注***：由于所有索引都从 0 开始，因此 `[1]` 是第二项，`[2]` 是第三项，依此类推。
+
+还可以使用索引修改列表中的值。 为此，可以分配一个新值，方法与分配变量值大致相同。 例如，可以更改列表中火星的名称以使用其别名：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+planets[3] = "Red Planet"
+print("Mars is also known as", planets[3])
+```
+
+输出：`Mars is also known as Red Planet`
+
+### 确定列表的长度
+
+若要获取列表的长度，请使用内置函数 `len()`。 以下代码创建一个新变量 `number_of_planets`。 该代码为该变量分配列表 `planets` 中的项数 (8)。
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+number_of_planets = len(planets)
+print("There are", number_of_planets, "planets in the solar system.")
+```
+
+输出：`There are 8 planets in the solar system`
+
+### 向列表中添加值
+
+Python 中的列表是动态的：可以在创建项后添加和删除项。 若要向列表中添加项，请使用方法 `.append(value)`。
+
+例如，以下代码将字符串 `"Pluto"` 添加到列表 `planets` 的末尾：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+planets.append("Pluto")
+number_of_planets = len(planets)
+print("There are actually", number_of_planets, "planets in the solar system.")
+```
+
+输出：`There are actually 9 planets in the solar system.`
+
+### 从列表中删除值
+
+通过对列表变量调用 `.pop()` 方法，可以删除列表中的最后一项：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+planets.pop()  # Goodbye, Pluto
+number_of_planets = len(planets)
+print("No, there are definitely", number_of_planets, "planets in the solar system.")
+```
+
+### 使用负索引
+
+请查看如何使用索引来提取列表中的单个项：
+
+```python
+print("The first planet is", planets[0])
+```
+
+输出：`The first planet is Mercury`
+
+索引从零开始并增加。 负索引从列表末尾开始，并向后执行。
+
+在以下示例中，`-1` 的索引返回列表中的最后一项。 `-2` 的索引返回倒数第二项。
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+print("The last planet is", planets[-1])
+print("The penultimate planet is", planets[-2])
+```
+
+```Output
+The last planet is Neptune
+The penultimate planet is Uranus
+```
+
+如果想返回倒数第三项，请使用 `-3` 的索引（依此类推）。
+
+### 在列表中查找值
+
+若要确定某值在列表中的存储位置，请使用列表的 `index` 方法。 此方法在列表中搜索值并返回该项的索引。 如果未找到匹配项，则返回 `-1`。
+
+以下示例显示使用 `"Jupiter"` 作为索引值：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+jupiter_index = planets.index("Jupiter")
+print("Jupiter is the", jupiter_index + 1, "planet from the sun")
+```
+
+输出：`Jupiter is the 5 planet from the sun`
+
+***备注***：由于索引从 0 开始，所以需要加 1 才能显示正确的数字。
+
+再提供一个示例：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+mercury_index = planets.index("Mercury")
+print("Mercury is the", mercury_index + 1, "planet from the sun")
+```
+
+输出：`Mercury is the 1 planet from the sun`
