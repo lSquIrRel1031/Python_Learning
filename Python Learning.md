@@ -1627,3 +1627,309 @@ print("The regular satellite moons of Jupiter are", regular_satellite_moons)
 
 
 
+## 关于“while”循环
+
+编写代码时，一个常见的难题是让其执行未知次数的任务。 在本单元中，你希望允许用户输入行星名称列表。 遗憾的是，你不知道用户输入了多少名称。 若要支持次数未知的循环，可以使用 `while` 循环。
+
+`while` 循环在当某个条件为 true 时执行操作。 可以使用 `while` 循环来：
+
+- 检查文件中的另一行。
+- 检查是否已设置标志。
+- 检查用户是否已输入完值。
+- 检查是否有其他更改，以指示代码可以停止执行操作。
+
+***重要***：创建 `while` 循环时，要记住的最重要一点是确保条件发生变化。 如果条件始终为 true，则 Python 将继续运行你的代码，直到程序发生故障。
+
+`while` 循环的语法类似于 `if` 语句的语法。 要同时提供条件和要在条件为真时运行的代码。
+
+`while` 循环有三个重要部分：
+
+- 关键字 `while`，后跟一个空格。
+
+- 测试的条件。 如果条件为 true，则运行 `while` 循环内的代码。
+
+- 要为每次迭代运行的代码，使用嵌套空格进行了缩进。 例如：
+
+	```python
+	while <condition>:
+	    # code here
+	```
+
+让我们看看如何创建代码来提示用户输入值，然后允许他们在输入完值后输入 done。 在我们的示例中，用户输入是在 `while` 循环的基础上测试的条件。
+
+```python
+user_input = ''
+
+while user_input.lower() != 'done':
+    user_input = input('Enter a new value, or done when done')
+```
+
+请注意，你要使用 `input` 来提示用户。 每次用户输入新值时，都将更改条件，这意味着 `while` 循环将在输入 done 后退出。
+
+
+
+***备注***：在本示例中，我们使用 `lower` 了将输入转换为小写，这样即可进行不区分大小写的比较。
+
+可以使用新输入的字符串，就像使用 `input` 捕获的任何其他字符串一样。 如果要将其添加到列表中，可以使用类似于以下示例的代码：
+
+```python
+# Create the variable for user input
+user_input = ''
+# Create the list to store the values
+inputs = []
+
+# The while loop
+while user_input.lower() != 'done':
+    # Check if there's a value in user_input
+    if user_input:
+        # Store the value in the list
+        inputs.append(user_input)
+    # Prompt for a new value
+    user_input = input('Enter a new value, or done when done')
+```
+
+请注意 `while` 循环内的 `if` 语句。 此语句测试 `user_input` 内的字符串值。 如果 `while` 循环是第一次运行，则没有任何值，因此没有任何内容要存储在 `inputs` 中。 第一次运行后，`user_input` 始终都会保留用户输入的值。 由于要测试 `while` 来确保该值不等于 `done`（用户为退出应用而输入的单词），因此你知道当前值是可添加到列表中的值。
+
+
+
+## 对列表使用“for”循环
+
+在 Python 中，列表可存储任何类型的值，如字符串或数字：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+```
+
+可以通过将索引括在变量名称后的方括号 (`[]`) 中来访问列表中的任何项目。 索引从 0 开始：
+
+```python
+planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+
+print("The first planet is ", planets[0])
+print("The second planet is ", planets[1])
+print("The third planet is ", planets[2])
+```
+
+还可以使用 `len` 确定列表中的项数。 因此，可以使用 `while` 循环和计数器来循环或循环访问列表中的每个项。 由于此操作很常见，Python 提供 `for` 循环，可用于循环访问列表。
+
+
+
+***备注***：Python 具有许多可供循环访问的类型。 这些类型称为可迭代项。
+
+Python 列表可迭代，可以与 `for` 循环配合使用。 将 `for` 循环与可迭代对象一起使用，在其中循环已知次数（可迭代对象中的每个项一次）。
+
+### 关于 `for` 循环
+
+下面是一个从 4 倒数到 0 的示例 `for` 循环：
+
+```python
+countdown = [4, 3, 2, 1, 0]
+for number in countdown:
+    print(number)
+print("Blast off!! 🚀")
+```
+
+`for` 循环是具有五个重要部分的语句：
+
+- 单词 `for`，后跟一个空格。
+- 要为序列中每个值创建的变量名称 (`number`)。
+- 单词 `in`，前后为空格。
+- 要循环访问的列表的名称（前面的示例中为 `countdown`）或可迭代对象，后跟冒号 (`:`)。
+- 要对可迭代中每个项运行的代码，由嵌套的空格分隔。
+
+我们使用 `sleep()` 函数将该代码更改为在每个数字之间等待一秒钟：
+
+```python
+from time import sleep
+
+countdown = [4, 3, 2, 1, 0]
+
+for number in countdown:
+    print(number)
+    sleep(1)  # Wait 1 second
+print("Blast off!! 🚀")
+```
+
+
+
+***备注***：大多数 Python 代码使用四个空格作为空白单元。 为了避免按下空格键四次，大多数编辑器都有一个用于插入四个空格的 Tab 键快捷方式。
+
+
+
+## Python 字典简介
+
+Python 中的变量可以存储各种数据类型。 之前，你已了解可以存储字符串和数字：
+
+```python
+name = 'Earth'
+moons = 1
+```
+
+尽管此方法确实适用于少量数据，但处理相关数据时，可能会变得越来越复杂。 想象一下，你想要同时存储有关地球和木星卫星的信息。
+
+```python
+earth_name = 'Earth'
+earth_moons = 1
+
+jupiter_name = 'Jupiter'
+jupiter_moons = 79
+```
+
+请注意，我们复制了具有不同前缀的变量。 这种重复会变得难以处理。 由于你会经常使用相关的数据集，例如不同城市不同月份的平均降雨量，因此将这些变量存储为单独的值并不是一个可行的选项。 可以改用 Python 字典。
+
+Python 字典使你能够使用相关的数据集。 字典是键/值对的集合。 可以将其想象为容器内的一组变量，其中键是变量的名称，值是存储在其中的值。
+
+### 创建字典
+
+Python 使用大括号 (`{ }`) 和冒号 (`:`) 来表示字典。 可以创建一个空字典，之后再添加值，也可以在创建时进行填充。 每个键/值用冒号分隔，每个键的名称以字符串字面量形式包含在引号中。 由于键是字符串字面量，因此可以使用任何适当的名称来描述值。
+
+让我们创建一个字典来存储地球的名称，以及地球具有的卫星数量：
+
+```python
+planet = {
+    'name': 'Earth',
+    'moons': 1
+}
+```
+
+你有两个键，`'name'` 和 `'moons'`。 每个键的行为方式都与变量的行为方式非常相似：它们具有唯一的名称，并且存储一个值。 但是，它们包含在一个名为 `planet` 的更大变量中。
+
+与常规变量一样，你需要确保使用正确的数据类型。 在前面示例中的 `moons` 的值 `1` 中，由于你想要使用整数，因此未在数字两边加上引号。 如果使用了 `'1'`，Python 会将此变量视为字符串，这会影响执行计算的能力。
+
+与常规变量不同，键名不需要遵循 Python 的标准命名规则。 可以使用键名来使代码更具描述性。
+
+### 读取字典值
+
+可以读取字典中的值。 字典对象具有 `get` 方法，可以使用该方法通过键访问值。 如果要打印 `name`，可以使用以下代码：
+
+```python
+print(planet.get('name'))
+```
+
+
+
+```Output
+Earth
+```
+
+正如你所料，访问字典中的值是一项常见操作。 幸运的是，有一个快捷方式。 可以将键传递到方括号表示法 (`[ ]`)。 此方法使用的代码比 `get` 少，并且大多数程序员都使用这种语法。 可以使用以下代码重写前面的示例：
+
+```python
+# planet['name'] is identical to using planet.get('name')
+print(planet['name'])
+```
+
+
+
+```Output
+Earth
+```
+
+尽管 `get` 和方括号 (`[ ]`) 在检索项时通常行为相同，但存在一个关键区别。 如果键不可用，`get` 将返回 `None`，`[ ]` 将引发 `KeyError`。
+
+```python
+wibble = planet.get('wibble') # Returns None
+wibble = planet['wibble'] # Throws KeyError
+```
+
+### 修改字典值
+
+还可以使用 `update` 方法修改字典对象内的值。 此方法接受字典作为参数，并使用你提供的新值更新任何现有值。 如果要更改 `planet` 字典的 `name`，可以使用以下代码，例如：
+
+```python
+planet.update({'name': 'Makemake'})
+
+# No output: name is now set to Makemake.
+```
+
+与使用方括号 (`[ ]`) 快捷方式读取值类似，你可以使用该相同的快捷方式来修改值。 语法的主要区别在于将使用 `=`（有时称为赋值运算符）来提供新值。 若要重写前面的示例以更改名称，可以使用以下代码：
+
+```python
+planet['name'] = 'Makemake'
+
+# No output: name is now set to Makemake.
+```
+
+使用 `update` 的主要优势是能够在一次操作中修改多个值。 接下来的两个示例在逻辑上相同，但语法不同。 你可以随意使用你认为最合适的任何语法。 大多数开发人员选择使用方括号来更新单个值。
+
+以下示例对 `planet` 变量进行相同的编辑，更新名称和卫星。 请注意，通过使用 `update`，你对函数进行了一次调用，而使用方括号涉及两次调用。
+
+使用更新：
+
+```python
+planet.update({
+    'name': 'Jupiter',
+    'moons': 79
+})
+```
+
+使用方括号：
+
+```python
+planet['name'] = 'Jupiter'
+planet['moons'] = 79
+```
+
+### 添加和删除键
+
+初始化字典时，无需创建所有键。 事实上，无需创建任何键！ 每当需要创建新键时，都可以像分配现有键一样分配它。
+
+假设你要更新 `planet` 以包含以天为单位的轨道周期：
+
+```python
+planet['orbital period'] = 4333
+
+# planet dictionary now contains: {
+#   name: 'jupiter'
+#   moons: 79
+#   orbital period: 4333
+# }
+```
+
+
+
+***重要***：与 Python 中的其他所有内容一样，键名区分大小写。 因此，`'name'` 和 `'Name'` 在 Python 字典中被视为两个单独的键。
+
+若要删除键，请使用 `pop`。 `pop` 返回值并从字典中删除键。 若要删除 `orbital period`，可以使用以下代码：
+
+```python
+planet.pop('orbital period')
+
+# planet dictionary now contains: {
+#   name: 'jupiter'
+#   moons: 79
+# }
+```
+
+### 复杂数据类型
+
+字典能够存储任何类型的值，包括其他字典。 这样，你可以根据需要对复杂数据进行建模。 想象一下，你需要存储 `planet` 的直径，该直径可以在其赤道或两极附近测量。 你可以在 `planet` 内创建另一个字典来存储此信息：
+
+```python
+# Add address
+planet['diameter (km)'] = {
+    'polar': 133709,
+    'equatorial': 142984
+}
+
+# planet dictionary now contains: {
+#   name: 'Jupiter'
+#   moons: 79
+#   diameter (km): {
+#      polar: 133709
+#      equatorial: 142984
+#   }
+# }
+```
+
+若要检索嵌套字典中的值，请将方括号链接在一起，或调用 `get`。
+
+```python
+print(f'{planet["name"]} polar diameter: {planet["diameter (km)"]["polar"]}')
+```
+
+
+
+```Output
+Jupiter polar diameter: 133709
+```
