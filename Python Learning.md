@@ -1933,3 +1933,274 @@ print(f'{planet["name"]} polar diameter: {planet["diameter (km)"]["polar"]}')
 ```Output
 Jupiter polar diameter: 133709
 ```
+
+
+
+## Python 函数的基本知识
+
+了解 Python 的编程基础知识后，下一步就该了解函数。 最简单形式的函数包含始终返回值的代码。 在某些情况下，函数也具有可选或必需的输入。
+
+开始编写的代码与程序的其他部分重复时，正好可以将该代码提取到函数中。 尽管通过函数共享公共代码非常有用，但也可以将各部分提取到更小（更易读）的函数中，以限制代码的大小。
+
+使用更小的函数避免重复并防止出现大型函数的程序更易读且更易维护。 当某些功能不能正常工作时，它们也更易于调试。
+
+有关函数输入的几个规则对于你可以充分利用函数必须提供的所有功能至关重要。
+
+ ***重要***
+
+虽然我们使用术语“输入”来描述函数要接收的内容，但这些元素通常称为“参数”、“形参”或“实参”。 为了在本模块中保持一致，我们将输入称为“参数”。
+
+### 不带参数的函数
+
+若要创建函数，请使用关键字 `def`，后面跟名称、括号，然后是包含函数代码的主体：
+
+```python
+def rocket_parts():
+    print("payload, propellant, structure")
+```
+
+在本例中，`rocket_parts` 是函数的名称。 该名称后跟空括号，这表示无需参数。 最后是代码，缩进四个空格。 若要使用函数，必须使用名称和括号调用它：
+
+```python
+rocket_parts()
+```
+
+
+
+```Output
+payload, propellant, structure
+```
+
+`rocket_parts()` 函数不接收任何参数，而是打印有关重力的语句。 如果需要使用某个函数返回的值，则可以将函数输出赋予变量：
+
+```python
+output = rocket_parts()
+```
+
+
+
+```Output
+payload, propellant, structure
+```
+
+
+
+```python
+output is None
+```
+
+
+
+```Output
+True
+```
+
+变量 `output` 的值为 `None` 可能看起来很奇怪。 这是因为 `rocket_parts()` 函数未显式返回值。 在 Python 中，如果函数未显式返回值，则它将隐式返回 `None`。 如果更新函数以返回字符串而不是打印字符串，则会导致 `output` 变量具有不同的值：
+
+
+
+```python
+def rocket_parts():
+    return "payload, propellant, structure"
+output = rocket_parts()
+output
+```
+
+
+
+```Output
+payload, propellant, structure
+```
+
+如果需要使用函数的值，则该函数必须显式返回。 否则将返回 `None`。
+
+***备注***
+
+不需要始终为函数的返回赋值。 在大多数情况下，如果函数未显式返回值，则意味着无需赋予或使用返回的隐式 `None` 值。
+
+### 必需参数和可选参数
+
+在 Python 中，多个内置函数都需要参数。 某些内置函数可以使参数成为可选参数。 内置函数可以立即使用，因此无需显式导入它们。
+
+需要参数的内置函数的一个示例是 `any()`。 此函数接收可迭代对象（例如列表）并在可迭代对象中的任何项目为 `True` 时返回 `True`。 否则，它将返回 `False`。
+
+
+
+```python
+any([True, False, False])
+```
+
+
+
+```Output
+True
+```
+
+
+
+```python
+any([False, False, False])
+```
+
+
+
+```Output
+False
+```
+
+如果不使用任何参数调用 `any()`，则会引发一个异常，其中会提供有帮助的信息。 错误消息说明需要至少一个参数：
+
+
+
+```python
+ any()
+```
+
+
+
+```Output
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: any() takes exactly one argument (0 given)
+```
+
+可以使用另一个名为 `str()` 的内置函数来验证某些函数是否允许使用可选参数。 此函数使用参数创建字符串。 如果未传入任何参数，它将返回空字符串：
+
+
+
+```python
+str()
+```
+
+
+
+```Output
+''
+```
+
+
+
+```python
+str(15)
+```
+
+
+
+```Output
+'15'
+```
+
+
+
+## 在 Python 中使用函数参数
+
+了解如何创建不带输入的函数后，下一步就是创建需要参数的函数。 使用参数可以提高函数的灵活性，因为参数可以执行更多操作并将其作用条件化。
+
+### 需要参数
+
+如果你正在驾驶一架火箭飞船，则没有必需输入的函数类似于一台使用按钮报告时间的计算机。 当你按下该按钮时，合成语音会报告时间。 但必需输入可能是用于计算行程距离的目标位置。 必需输入称为函数的参数。
+
+若需要参数，请将其放在括号内：
+
+```python
+def distance_from_earth(destination):
+    if destination == "Moon":
+        return "238,855"
+    else:
+        return "Unable to compute to that destination"
+```
+
+尝试不使用任何参数调用 `distance_from_earth()` 函数：
+
+```python
+distance_from_earth()
+```
+
+
+
+```Output
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: distance_from_earth() missing 1 required positional argument: 'destination'
+```
+
+Python 会引发 `TypeError`，出现一条错误消息，指出该函数需要一个名为 `destination` 的参数。 如果火箭飞船的计算机需要使用目标位置计算行程距离，则它应该提示目标位置是必需项。 示例代码包含两个响应路径，一个针对月球 (Moon)，另一个针对其他任何星球。 使用月球 (Moon) 作为输入以获取答案：
+
+
+
+```python
+distance_from_earth("Moon")
+```
+
+
+
+```Output
+238,855
+```
+
+由于存在 catch-all 条件，因此请尝试使用任何其他字符串作为目标位置来检查该行为 ：
+
+```python
+distance_from_earth("Saturn")
+```
+
+
+
+```Output
+Unable to compute to that destination
+```
+
+### 多个必需参数
+
+若要使用多个参数，必须使用逗号分隔它们。 我们来创建一个函数，给定距离和恒定速度后，该函数可以计算到达目标位置所需的天数：
+
+```python
+def days_to_complete(distance, speed):
+    hours = distance/speed
+    return hours/24
+```
+
+现在，已知从地球到月球的距离，速度为每小时 75 英里的限速，计算到达月球所需的天数：
+
+
+
+```python
+days_to_complete(238855, 75)
+```
+
+
+
+```Output
+132.69722222222222
+```
+
+## 以函数作为参数
+
+你可以使用 `days_to_complete()` 函数的值并将其赋予变量，然后将其传递给 `round()`（一个内置函数，该函数可以舍入为最接近的整数）以获取整数：
+
+```python
+total_days = days_to_complete(238855, 75)
+round(total_days)
+```
+
+
+
+```Output
+133
+```
+
+不过，一种有用的模式是将函数传递给其他函数，而不是赋予返回值：
+
+```python
+round(days_to_complete(238855, 75))
+```
+
+
+
+```Output
+133
+```
+
+> ***提示***
+
+> 虽然将函数作为输入直接传递到其他函数中很有用，但有可能降低易读性。 当函数需要多个参数时，此模式尤其麻烦。
